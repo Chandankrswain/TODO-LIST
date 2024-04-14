@@ -1,7 +1,11 @@
-import "./App.css";
+import Counter from "./components/Counter";
 
 function App() {
-  return <></>;
+  return (
+    <>
+      <Counter color="red" />
+    </>
+  );
 }
 
 export default App;
