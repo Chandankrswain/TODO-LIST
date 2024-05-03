@@ -1,9 +1,14 @@
 import { Button } from "@chakra-ui/react";
 
-const SubmitButton = () => {
+const SubmitButton = ({ handleClick }: any) => {
   return (
     <>
-      <Button width="100px" margin="10px" colorScheme="green">
+      <Button
+        onClick={handleClick}
+        width="100px"
+        margin="10px"
+        colorScheme="green"
+      >
         Submit
       </Button>
     </>

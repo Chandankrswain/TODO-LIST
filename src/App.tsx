@@ -4,6 +4,7 @@ import TodoTypeMenu from "./components/TodoTypeMenu";
 import DateAndTime from "./components/DateAndTime";
 import Category from "./components/Category";
 import SubmitButton from "./components/SubmitButton";
+import { useState } from "react";
 
 const headStyle = {
   fontSize: "100px",
@@ -13,6 +14,16 @@ const headStyle = {
 };
 
 function App() {
+  const [data, setData] = useState({});
+
+  const handleChange = (key: any, value: any) => {
+    setData((prev) => ({ ...prev, [key]: value }));
+  };
+
+  const handleSubmit = () => {
+    console.log(data);
+  };
+
   return (
     <>
       <h1 style={headStyle}>Stuff I need to do</h1>
@@ -25,14 +36,28 @@ function App() {
       >
         <GridItem justifyContent="center" width="400px" bg="#212529">
           <VStack alignItems="right">
-            <InputBar />
+            <InputBar name={"inputBar"} onChange={handleChange} />
             <HStack margin="0px 10px 10px 10px">
-              <TodoTypeMenu />
-              <Category />
+              <TodoTypeMenu
+                onChange={handleChange}
+                name={"todoType"}
+                myTodoType={[
+                  "Hobby",
+                  "Personal",
+                  "Lifestyle",
+                  "Basics",
+                  "No list",
+                ]}
+              />
+              <Category
+                onChange={handleChange}
+                name={"Category"}
+                myCategory={["Home", "Work", "Others"]}
+              />
             </HStack>
-            <DateAndTime />
+            <DateAndTime name={"dateAndTime"} onChange={handleChange} />
             <VStack alignItems="end">
-              <SubmitButton />
+              <SubmitButton handleClick={handleSubmit} />
             </VStack>
           </VStack>
         </GridItem>

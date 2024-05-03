@@ -1,19 +1,37 @@
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { Button, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
+import { useState } from "react";
 
-const TodoTypeMenu = () => {
+interface Props {
+  myTodoType: string[];
+  onChange: (name: any, type: any) => void;
+  name: string;
+}
+
+const TodoTypeMenu = ({ myTodoType, onChange, name }: Props) => {
+  const [todoType, setselectedTodoType] = useState("");
+
+  const handleClick = (type: any) => {
+    setselectedTodoType(type);
+    onChange(name, type);
+  };
+
   return (
     <>
       <Menu>
         <MenuButton width="200px" as={Button} rightIcon={<ChevronDownIcon />}>
-          Todo Type
+          {todoType || "Todo Type"}
         </MenuButton>
         <MenuList>
-          <MenuItem>Hobby</MenuItem>
-          <MenuItem>Personal</MenuItem>
-          <MenuItem>LifeStyle</MenuItem>
-          <MenuItem>Basics</MenuItem>
-          <MenuItem>No list</MenuItem>
+          {myTodoType.map((type, id) => (
+            <MenuItem
+              onClick={() => handleClick(type)}
+              onSubmit={() => handleClick(type)}
+              key={id}
+            >
+              {type}
+            </MenuItem>
+          ))}
         </MenuList>
       </Menu>
     </>
