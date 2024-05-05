@@ -5,6 +5,7 @@ import DateAndTime from "./components/DateAndTime";
 import Category from "./components/Category";
 import SubmitButton from "./components/SubmitButton";
 import { useState } from "react";
+import TodoCards from "./components/TodoCards";
 
 const headStyle = {
   fontSize: "100px",
@@ -61,7 +62,9 @@ function App() {
             </VStack>
           </VStack>
         </GridItem>
-        <GridItem width="100%" bg="#212529"></GridItem>
+        <GridItem width="100%" bg="#212529">
+          <TodoCards />
+        </GridItem>
       </Grid>
     </>
   );
