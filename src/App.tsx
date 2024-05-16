@@ -7,6 +7,13 @@ import SubmitButton from "./components/SubmitButton";
 import { useState } from "react";
 import TodoCards from "./components/TodoCards";
 
+interface TodoData {
+  inputBar?: string;
+  todoType?: string;
+  Category?: string;
+  dateAndTime?: string;
+}
+
 const headStyle = {
   fontSize: "100px",
   fontWeight: "800",
@@ -15,14 +22,16 @@ const headStyle = {
 };
 
 function App() {
-  const [data, setData] = useState({});
+  const [data, setData] = useState<TodoData>({});
+  const [cardData, setCardData] = useState<TodoData[]>([]);
 
-  const handleChange = (key: any, value: any) => {
+  const handleChange = (key: keyof TodoData, value: string) => {
     setData((prev) => ({ ...prev, [key]: value }));
   };
 
   const handleSubmit = () => {
-    console.log(data);
+    setCardData((prev) => [...prev, data]);
+    setData({}); // Clear the form data after submission
   };
 
   return (
@@ -63,7 +72,7 @@ function App() {
           </VStack>
         </GridItem>
         <GridItem width="100%" bg="#212529">
-          <TodoCards />
+          <TodoCards data={cardData} />
         </GridItem>
       </Grid>
     </>
