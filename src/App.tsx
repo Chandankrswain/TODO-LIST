@@ -1,4 +1,4 @@
-import { Grid, GridItem, HStack, VStack } from "@chakra-ui/react";
+import { Grid, GridItem, HStack, VStack, Box, Text } from "@chakra-ui/react";
 import InputBar from "./components/InputBar";
 import TodoTypeMenu from "./components/TodoTypeMenu";
 import DateAndTime from "./components/DateAndTime";
@@ -19,7 +19,7 @@ const headStyle = {
   fontSize: "100px",
   fontWeight: "800",
   color: "#9a9a9a",
-  marginLeft: "190px",
+  marginLeft: "5%", // Adjusted for smaller screens
 };
 
 function App() {
@@ -43,13 +43,13 @@ function App() {
     <>
       <h1 style={headStyle}>Stuff I need to do</h1>
       <Grid
-        marginLeft="10%"
-        marginTop="10px"
-        h="600px"
-        width="80%"
-        templateColumns="400px 1fr"
+        templateColumns={{ base: "1fr", lg: "400px 1fr" }} // Responsive layout
+        gap={4}
+        marginX={{ base: "1%", lg: "auto" }} // Centered on larger screens
+        maxWidth="1960px"
+        paddingX={4}
       >
-        <GridItem justifyContent="center" width="400px" bg="#212529">
+        <GridItem>
           <VStack alignItems="right">
             <InputBar name={"inputBar"} onChange={handleChange} />
             <HStack margin="0px 10px 10px 10px">
@@ -71,13 +71,13 @@ function App() {
               />
             </HStack>
             <DateAndTime name={"dateAndTime"} onChange={handleChange} />
-            <VStack alignItems="end">
-              <SubmitButton handleClick={handleSubmit} />
-            </VStack>
+            <SubmitButton handleClick={handleSubmit} />
           </VStack>
         </GridItem>
-        <GridItem width="100%" bg="#212529">
-          <TodoCards data={cardData} setCardData={setCardData} />
+        <GridItem>
+          <Box borderRadius={19} bg="#212529" minHeight="600px" padding="1px">
+            <TodoCards data={cardData} setCardData={setCardData} />
+          </Box>
         </GridItem>
       </Grid>
     </>

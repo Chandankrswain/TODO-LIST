@@ -1,6 +1,5 @@
 import { Card, CardBody, Text, Button, HStack, VStack } from "@chakra-ui/react";
 import { ArrowUpIcon, ArrowDownIcon } from "@chakra-ui/icons";
-import { useState } from "react";
 
 const TodoCards = ({ data, setCardData }: any) => {
   const handleClick = (index: number) => {
@@ -20,7 +19,7 @@ const TodoCards = ({ data, setCardData }: any) => {
           bgColor="#333333"
           border="2px solid"
           borderColor={item.completed ? "#B5E550" : "transparent"}
-          borderRadius={15}
+          borderRadius={16}
         >
           <CardBody>
             <HStack justifyContent="space-between">
@@ -33,14 +32,14 @@ const TodoCards = ({ data, setCardData }: any) => {
                 >
                   {item.inputBar}
                 </Text>
-                <HStack>
+                <HStack gap={3}>
                   <Text fontSize={15} color="#fbff12">
                     #{item.todoType}
                   </Text>
-                  <Text fontSize={15} color="#ff206e">
+                  <Text fontSize={13} color="#ff206e">
                     #{item.Category}
                   </Text>
-                  <Text fontSize={15} color="#41ead4">
+                  <Text fontSize={12} color="#41ead4">
                     #{item.dateAndTime}
                   </Text>
                 </HStack>
