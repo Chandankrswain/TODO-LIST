@@ -12,6 +12,7 @@ interface TodoData {
   todoType?: string;
   Category?: string;
   dateAndTime?: string;
+  completed?: boolean;
 }
 
 const headStyle = {
@@ -30,8 +31,12 @@ function App() {
   };
 
   const handleSubmit = () => {
-    setCardData((prev) => [...prev, data]);
-    setData({}); // Clear the form data after submission
+    if (data.inputBar && data.todoType && data.Category && data.dateAndTime) {
+      setCardData((prev) => [...prev, { ...data, completed: false }]);
+      setData({});
+    } else {
+      alert("Please fill out all fields");
+    }
   };
 
   return (
@@ -72,7 +77,7 @@ function App() {
           </VStack>
         </GridItem>
         <GridItem width="100%" bg="#212529">
-          <TodoCards data={cardData} />
+          <TodoCards data={cardData} setCardData={setCardData} />
         </GridItem>
       </Grid>
     </>
