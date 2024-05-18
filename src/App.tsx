@@ -1,4 +1,4 @@
-import { Grid, GridItem, HStack, VStack, Box, Text } from "@chakra-ui/react";
+import { Grid, GridItem, HStack, VStack, Box } from "@chakra-ui/react";
 import InputBar from "./components/InputBar";
 import TodoTypeMenu from "./components/TodoTypeMenu";
 import DateAndTime from "./components/DateAndTime";
@@ -13,6 +13,7 @@ interface TodoData {
   Category?: string;
   dateAndTime?: string;
   completed?: boolean;
+  deleted?: boolean;
 }
 
 const headStyle = {
@@ -32,7 +33,10 @@ function App() {
 
   const handleSubmit = () => {
     if (data.inputBar && data.todoType && data.Category && data.dateAndTime) {
-      setCardData((prev) => [...prev, { ...data, completed: false }]);
+      setCardData((prev) => [
+        ...prev,
+        { ...data, completed: false, deleted: false },
+      ]);
       setData({});
     } else {
       alert("Please fill out all fields");

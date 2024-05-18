@@ -9,6 +9,37 @@ const TodoCards = ({ data, setCardData }: any) => {
       )
     );
   };
+  const handleDeleteClick = (index: number) => {
+    setCardData(
+      (prevData: any) => prevData.filter((_: any, i: number) => i !== index) // so this logic will provide us the new array that is not equal to the index which we were passing as an argument
+    );
+  };
+
+  const handleMoveUp = (index: number) => {
+    if (index > 0) {
+      setCardData((prevData: any) => {
+        const newData = [...prevData];
+        [newData[index], newData[index - 1]] = [
+          newData[index - 1],
+          newData[index],
+        ];
+        return newData;
+      });
+    }
+  };
+
+  const handleMoveDown = (index: number) => {
+    if (index < data.length - 1) {
+      setCardData((prevData: any) => {
+        const newData = [...prevData];
+        [newData[index], newData[index + 1]] = [
+          newData[index + 1],
+          newData[index],
+        ];
+        return newData;
+      });
+    }
+  };
 
   return (
     <>
@@ -28,7 +59,7 @@ const TodoCards = ({ data, setCardData }: any) => {
                   textDecoration={item.completed ? "line-through" : "none"}
                   color="#cccccc"
                   fontWeight="bold"
-                  fontSize={32}
+                  fontSize={33}
                 >
                   {item.inputBar}
                 </Text>
@@ -36,7 +67,7 @@ const TodoCards = ({ data, setCardData }: any) => {
                   <Text fontSize={15} color="#fbff12">
                     #{item.todoType}
                   </Text>
-                  <Text fontSize={13} color="#ff206e">
+                  <Text fontSize={14} color="#ff206e">
                     #{item.Category}
                   </Text>
                   <Text fontSize={12} color="#41ead4">
@@ -46,10 +77,16 @@ const TodoCards = ({ data, setCardData }: any) => {
               </VStack>
               <HStack>
                 <VStack>
-                  <Button>
+                  <Button
+                    onClick={() => handleMoveUp(index)}
+                    isDisabled={index === 0}
+                  >
                     <ArrowUpIcon />
                   </Button>
-                  <Button>
+                  <Button
+                    onClick={() => handleMoveDown(index)}
+                    isDisabled={index === data.length - 1}
+                  >
                     <ArrowDownIcon />
                   </Button>
                 </VStack>
@@ -57,7 +94,12 @@ const TodoCards = ({ data, setCardData }: any) => {
                   <Button onClick={() => handleClick(index)} width="100px">
                     {item.completed ? "Undo" : "Complete"}
                   </Button>
-                  <Button width="100px">Delete</Button>
+                  <Button
+                    onClick={() => handleDeleteClick(index)}
+                    width="100px"
+                  >
+                    Delete
+                  </Button>
                 </VStack>
               </HStack>
             </HStack>
